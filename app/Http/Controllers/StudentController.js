@@ -6,40 +6,67 @@ class StudentController {
 
   * index(request, response) {
     //
-    console.log(bean);                
-    yield response.sendView('welcome')
+    firebase.database().ref('/students/')
+      .once('value', snapshot => {
+        response.send(snapshot);
+      })
+
   }
 
   * create(request, response) {
     //
-      const body = request._body;
-      console.log(request);
-      firebase.database().ref(`student-resource-b5dd0`)
-      push({
-        name: body.name,
-        matric_number: body.matric_number,
-        level: body.level,
-        cgpa: body.cgpa,
-        department: body.department,
-        dob: body.dob,
-        email_address: email_address,        
-        phone_number: body.phone_number,
-      })
+    const body = request._body;
 
-     yield response.sendView('welcome')
+    firebase.database().ref(`/students/`).push({
+      name: body.name,
+      matric_number: body.matric_number,
+      level: body.level,
+      cgpa: body.cgpa,
+      department: body.department,
+      dob: body.dob,
+      email_address: body.email_address,
+      phone_number: body.phone_number,
+    }).then(() => {
+      console.log('success');
+    }).catch(() => {
+      console.log(failure);
+    })
+
+    yield response.sendView('welcome')
 
 
   }
 
   * update(request, response) {
     //
-    console.log(bean);                
+    const body = request._body;
+    const id = request._params.id;
+
+    firebase.database().ref(`/students/${id}`).set({
+      name: body.name,
+      matric_number: body.matric_number,
+      level: body.level,
+      cgpa: body.cgpa,
+      department: body.department,
+      dob: body.dob,
+      email_address: body.email_address,
+      phone_number: body.phone_number,
+    }).then(() => {
+      console.log('success');
+    }).catch(() => {
+      console.log(failure);
+    })
+  
     yield response.sendView('welcome')
   }
 
   * destroy(request, response) {
     //
-    console.log(bean);                
+    const id = request._params.id;
+    console.log(id);
+    firebase.database().ref(`/students/${id}`).remove()
+      .then(() => console.log('success'))
+      .catch(() => console.log('failed'));
     yield response.sendView('welcome')
   }
 
