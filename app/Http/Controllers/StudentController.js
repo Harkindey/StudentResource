@@ -17,13 +17,12 @@ class StudentController {
 
     firebase.database().ref(`/students/`).push({
       name: body.name,
-      matric_number: body.matric_number,
-      level: body.level,
-      cgpa: body.cgpa,
+      registration_number: body.registration_number,
+      current_part: body.current_part,
+      degree_programme: body.degree_programme,
       department: body.department,
-      dob: body.dob,
-      email_address: body.email_address,
-      phone_number: body.phone_number,
+      faculty: body.faculty,
+      hall_of_residence: body.hall_of_residence
     }).then((res) => {
       response.status(200).send(res);
     }).catch((err) => {
@@ -38,13 +37,12 @@ class StudentController {
 
     firebase.database().ref(`/students/${id}`).set({
       name: body.name,
-      matric_number: body.matric_number,
-      level: body.level,
-      cgpa: body.cgpa,
+      registration_number: body.registration_number,
+      current_part: body.current_part,
+      degree_programme: body.degree_programme,
       department: body.department,
-      dob: body.dob,
-      email_address: body.email_address,
-      phone_number: body.phone_number,
+      faculty: body.faculty,
+      hall_of_residence: body.hall_of_residence
     }).then((res) => {
       response.status(200).send(res);
     }).catch((err) => {
