@@ -5,7 +5,6 @@ const bean = 'testing 123';
 class StudentController {
 
   * index(request, response) {
-    //
     firebase.database().ref('/students/')
       .once('value', snapshot => {
         response.send(snapshot);
@@ -14,7 +13,6 @@ class StudentController {
   }
 
   * create(request, response) {
-    //
     const body = request._body;
 
     firebase.database().ref(`/students/`).push({
@@ -26,19 +24,15 @@ class StudentController {
       dob: body.dob,
       email_address: body.email_address,
       phone_number: body.phone_number,
-    }).then(() => {
-      console.log('success');
-    }).catch(() => {
-      console.log(failure);
-    })
-
-    yield response.sendView('welcome')
-
+    }).then((res) => {
+      response.status(200).send(res);
+    }).catch((err) => {
+      response.status(400).send(err)
+    });
 
   }
 
   * update(request, response) {
-    //
     const body = request._body;
     const id = request._params.id;
 
@@ -51,23 +45,22 @@ class StudentController {
       dob: body.dob,
       email_address: body.email_address,
       phone_number: body.phone_number,
-    }).then(() => {
-      console.log('success');
-    }).catch(() => {
-      console.log(failure);
-    })
-  
-    yield response.sendView('welcome')
+    }).then((res) => {
+      response.status(200).send(res);
+    }).catch((err) => {
+      response.status(400).send(err)
+    });
   }
 
   * destroy(request, response) {
-    //
     const id = request._params.id;
     console.log(id);
     firebase.database().ref(`/students/${id}`).remove()
-      .then(() => console.log('success'))
-      .catch(() => console.log('failed'));
-    yield response.sendView('welcome')
+      .then((res) => {
+        response.status(200).send(res)
+      }).catch((err) => {
+        response.status(404).send(err)
+      });
   }
 
 }
