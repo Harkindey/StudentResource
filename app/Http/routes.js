@@ -17,4 +17,10 @@
 
 const Route = use('Route')
 
-Route.on('/').render('welcome')
+// Route.on('/').render('welcome')
+Route.get('/', 'StudentController.index');
+Route.post('/create', 'StudentController.create');
+Route.put('/update/:id', 'StudentController.update');
+Route.delete('/delete/:id', 'StudentController.destroy');
+
+
