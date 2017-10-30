@@ -41,7 +41,7 @@ module.exports = {
   | Expose headers to Access-Control-Expose-Headers.
   |
   */
-  exposeHeaders: false,
+  exposeHeaders: true,
 
   /*
   |--------------------------------------------------------------------------

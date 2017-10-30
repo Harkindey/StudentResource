@@ -52,7 +52,6 @@ class StudentController {
 
   * destroy(request, response) {
     const id = request._params.id;
-    console.log(id);
     firebase.database().ref(`/students/${id}`).remove()
       .then((res) => {
         response.status(200).send(res)
